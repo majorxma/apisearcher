@@ -1,0 +1,8 @@
+/*about the css of code-sercher*/
+body, ul, ol, p, li {padding: 0;margin: 0;font-family: arial;}
+li {list-style:none;}
+img {border:none}
+a {text-decoration: none;}
+a:hover {text-decoration: underline;}
+
+body {background-image: url('imags/1.png');}

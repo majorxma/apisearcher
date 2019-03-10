@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Api-searcher</title>
+<style>
+    
+</style>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+<body>
+    <div id = "app">
+        <div id = "LoginInterface">
+            <div class = "center1">
+                <input>
+                <button></button>
+            </div>
+        </div>
+
+        <div id = "showIntreface">
+                <transition
+                v-for = "item in items"
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInLeft"
+                leave-active-class="animated bounceOutRight">
+                    <center v-if = "ok">
+                        <div v-html = "item.messag"></div>
+                    </center>
+                </transition>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        
+    </script>
+</body>
+</html>
