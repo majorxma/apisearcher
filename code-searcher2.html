@@ -2,39 +2,285 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Api-searcher</title>
+<title>api-codesearcher</title>
 <style>
-    
+    body{
+        margin: 0;
+        padding: 0;
+        /*background-color: #FFF2E2;*/
+        background-image: url('back1.png');
+        width:100%;
+        height:100%;
+    }
+
+    input {
+         height:30px;
+         width:400px;
+         background: none;
+         font-size: 20px;
+         outline: none;
+         border-style: none;
+     }
+
+    #app {
+        position: relative;
+        height: 100%;
+        width:90%;
+        left: 5%;
+        top:40px;
+    }
+
+
+    #page2 {
+        position: absolute;
+        top:80px;
+        left: 5%;
+        background-color: #2c3e50;
+        border-radius: 20px;
+        width:90%;
+    }
+
+    .space {
+        position:absolute;
+        height: 30px;
+    }
+
+    textarea {
+        overflow: hidden;
+        margin:10px;
+        text-align: left;
+        color : #fdc565;
+        border-radius: 10px;
+        font-size:15px;
+        width:80%;
+        overflow-y:visible;
+        background-color:#2c3e50;
+    }
+
+    .searcher1 {
+        left:27.5%;
+        background: #FFF2E2;
+        top:100px;
+        border-radius: 10px;
+        margin: auto;
+        width: 45%;
+        height: 35px;
+        border:solid 1px;
+    }
+
+    .center1{
+        position: absolute;
+        width:40%;
+        top:200px;
+        left:30%;
+     }
+
+     .searcher
+     {
+        position:absolute;
+        left:27.5%;
+         top:400px;
+        border-radius: 10px;
+         margin: auto;
+        width: 45%;
+        height: 35px;
+        border:solid 1px;
+     }
+
+    .login-button{
+        float:right;
+        width: 120px;
+	    height: 35px;
+	    border-width: 0px; 
+	    border-radius: 10px; 
+	    background: #1E90FF; 
+	    cursor: pointer; 
+	    outline: none; 
+	    font-family: Microsoft YaHei; 
+	    color: white; 
+	    font-size: 17px;
+    }
+
+
+    .login-button:hover {
+        background: #5599FF;
+    }
+
 </style>
 <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 <body>
-    <div id = "app">
-        <div id = "LoginInterface">
-            <div class = "center1">
-                <input>
-                <button></button>
-            </div>
-        </div>
 
-        <div id = "showIntreface">
+
+
+<div id="app">
+
+    <transition
+            name="custom-classes-transition"
+            enter-active-class="animated bounceInLeft"
+            leave-active-class="animated bounceOutRight">
+        <div class = "searcher1" v-if = "!ok">
+            <input left = "0" id = "iput" v-model = "message" type="border-radius:10px;" placeholder="please input your search">
+            <button class="login-button" v-on:click="counter = !counter">SEARCH</button>
+        </div>
+    </transition>
+
+    <div id = "page2" v-if = "!ok">
+            <div class = "space"></div>
+            <template v-for = "item in items">
                 <transition
-                v-for = "item in items"
-                name="custom-classes-transition"
-                enter-active-class="animated bounceInLeft"
-                leave-active-class="animated bounceOutRight">
-                    <center v-if = "ok">
-                        <div v-html = "item.messag"></div>
+                    name="custom-classes-transition"
+                    enter-active-class="animated bounceInLeft"
+                    leave-active-class="animated bounceOutRight">
+                    <center>
+                            <textarea class = "T" cols="120" rows="10">
+                            {{item.code}}
+                            </textarea>
                     </center>
                 </transition>
-        </div>
+            </template>
     </div>
 
+</div>
 
 
-    <script type="text/javascript">
-        
-    </script>
+
+
+<!-- JavaScript 代码需要放在尾部（指定的HTML元素之后） -->
+<script>
+new Vue({
+    el:'#app',
+    data: {
+        message:'Hello world!', 
+        ok: false,
+        counter: true,
+        items:[
+            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"},
+            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"},
+            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"},
+            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"},
+            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"}
+        ]
+    },
+
+    watch: {
+          counter:function (val) {
+            this.ok = false;
+		console.log("ttttttttttttttt");
+		axios.get('http://holer.org:65263/sss', {
+			params: {
+				a: this.message
+			}
+		}).then(function (response) {
+console.log(this.ok);
+			console.log(this.items);
+			console.log("WWWWWWWWWWWWWWWWWWWWW");
+			console.log("Ans: ",  response.data);
+			//console.log(response);
+			this.items = response.data;
+	       		//ans_tmp = response.data;
+			console.log(this.items);
+			console.log("end");
+		}.bind(this))
+		.catch(function (error) {
+			console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+			console.log(error);
+		});
+
+		this.ok = false;
+          },
+          back:function(val) {
+                this.ok = false;
+          }
+      },
+
+});
+
+var autoTextarea = function (elem, extra, maxHeight) {
+        //判断elem是否为数组
+        if(elem.length > 0){
+            for(var i = 0; i < elem.length; i++ ){
+               e(elem[i]);
+            }
+        }
+        else{
+            e(elem);
+        }
+ 
+        function e(elem){
+        extra = extra || 0;
+        var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+        isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+                addEvent = function (type, callback) {
+                        elem.addEventListener ?
+                                elem.addEventListener(type, callback, false) :
+                                elem.attachEvent('on' + type, callback);
+                },
+                getStyle = elem.currentStyle ? function (name) {
+                        var val = elem.currentStyle[name];
+ 
+                        if (name === 'height' && val.search(/px/i) !== 1) {
+                                var rect = elem.getBoundingClientRect();
+                                return rect.bottom - rect.top -
+                                        parseFloat(getStyle('paddingTop')) -
+                                        parseFloat(getStyle('paddingBottom')) + 'px';        
+                        };
+ 
+                        return val;
+                } : function (name) {
+                                return getComputedStyle(elem, null)[name];
+                },
+                minHeight = parseFloat(getStyle('height'));
+ 
+        elem.style.resize = 'none';
+ 
+        var change = function () {
+                var scrollTop, height,
+                        padding = 0,
+                        style = elem.style;
+ 
+                if (elem._length === elem.value.length) return;
+                elem._length = elem.value.length;
+ 
+                if (!isFirefox && !isOpera) {
+                        padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+                };
+                scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+ 
+                elem.style.height = minHeight + 'px';
+                if (elem.scrollHeight > minHeight) {
+                        if (maxHeight && elem.scrollHeight > maxHeight) {
+                                height = maxHeight - padding;
+                                style.overflowY = 'auto';
+                        } else {
+                                height = elem.scrollHeight - padding;
+                                style.overflowY = 'hidden';
+                        };
+                        style.height = height + extra + 'px';
+                        scrollTop += parseInt(style.height) - elem.currHeight;
+                        document.body.scrollTop = scrollTop;
+                        document.documentElement.scrollTop = scrollTop;
+                        elem.currHeight = parseInt(style.height);
+                };
+        };
+ 
+        addEvent('propertychange', change);
+        addEvent('input', change);
+        addEvent('focus', change);
+        change();
+        }
+};
+
+autoTextarea(document.getElementsByClassName("T"));
+
+
+
+</script>
 </body>
 </html>
+
+
+<div v-html = "item.data.code"></div>

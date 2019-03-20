@@ -65,11 +65,12 @@
         <center  v-if = "!ok" class = "center1">
                 <image  position = "absolute" top = "200" id = "image1" src = "apicodesearcher1.png"></image>
         </center>
+    <div>{{message1}}</div>
     <div class = "searcher" v-if = "!ok">
         <input left = "0" id = "iput" v-model = "message" type="border-radius:10px;" placeholder="please input your search">
         <button class="login-button" v-on:click="counter = !counter">SEARCH</button>
     </div>
-    
+    <textarea name="descript" id="descript" cols="120" rows="10">{{item.code}}</textarea>
     <div id = "output">
             <transition
             v-for = "item in items"
@@ -77,7 +78,7 @@
             enter-active-class="animated bounceInLeft"
             leave-active-class="animated bounceOutRight">
                 <div v-if = "ok">
-                    <div v-html = "item.messag"></div>
+                        <textarea name="descript" id="descript" cols="120" rows="10">{{item.code}}<textarea>
                 </div>
             </transition>
     </div>    
@@ -92,7 +93,8 @@
       data: {
         counter: false,
         message: '',
-        message1:'',
+        message1:'fjalfja',
+        message2:'faljfla',
         k1: '<div id = "ka">try again</div>',
         ok: false,
         items: [
