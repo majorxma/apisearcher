@@ -30,6 +30,9 @@
         top:40px;
     }
 
+    #centershow{
+        border:3px, red, solid;
+    }
 
     #page2 {
         position: absolute;
@@ -46,14 +49,15 @@
     }
 
     textarea {
+        position: relative;
         overflow: hidden;
-        margin:10px;
+        margin:0px;
+        border:0px;
         text-align: left;
         color : #fdc565;
         border-radius: 10px;
         font-size:15px;
-        width:80%;
-        overflow-y:visible;
+        width:95%;
         background-color:#2c3e50;
     }
 
@@ -68,12 +72,6 @@
         border:solid 1px;
     }
 
-    .center1{
-        position: absolute;
-        width:40%;
-        top:200px;
-        left:30%;
-     }
 
      .searcher
      {
@@ -85,6 +83,10 @@
         width: 45%;
         height: 35px;
         border:solid 1px;
+     }
+
+     .innerexplain{
+         color:white;
      }
 
     .login-button{
@@ -104,6 +106,60 @@
 
     .login-button:hover {
         background: #5599FF;
+    }
+
+    #mainshow{
+        border: 2px solid white;
+        width: 80%;
+        left:10%;
+        border-radius: 15px;
+        position: relative;
+        margin: 30px;
+        padding: 0px;
+    }
+
+    .show2{
+        height: 40px;
+        border-bottom:2px white solid;
+    }
+
+    .show3{
+        position: relative;
+        left:45%;
+        top:15%;
+        font-size: 130%;
+    }
+
+    .show4{
+        position: relative;
+        width:70%;
+        left: 14%;
+        border: 1px white solid;
+        padding: 0px;
+        border-radius: 15px;
+        margin: 10px;
+    }
+
+    .show5 {
+        position: relative;
+        top:20%;
+        height: 40px;
+        border-bottom: 1px white solid;
+    }
+    
+    .show6 {
+        position: relative;
+        height: 20px;
+        top:25%;
+        left:40%;
+    }
+
+    .show7{  
+        position: relative;
+        top:20%;
+        height: 40px;
+        border-radius: 5px;
+        border: 1px white solid;
     }
 
 </style>
@@ -129,18 +185,33 @@
     </transition>
 
     <div id = "page2" v-if = "!ok">
-            <div class = "space"></div>
-            <template v-for = "item in items">
-                <transition
-                    name="custom-classes-transition"
-                    enter-active-class="animated bounceInLeft"
-                    leave-active-class="animated bounceOutRight">
-                    <center>
-                            <textarea class = "T" cols="120" rows="10">
-                            {{item.code}}
-                            </textarea>
-                    </center>
-                </transition>
+            <template v-for = "(item,index) in items">
+                <div id = mainshow>
+                        <div class = show2>
+                            <div class = show3>Result:{{index}}</div>
+                            </div>
+                                <div class = show4>
+                                    <div class = show5><div class = show6>code of result{{index}}</div></div>
+                                    <center>
+                                        <textarea class = "T" cols="100" rows="5">
+                                                {{item.code}}
+                                        </textarea>
+                                    </center>
+                                    
+                                    <div class = show7><div class = show6>API of result{{index}}</div></div>
+                                    <center>
+                                        <textarea class = "T" cols="100" rows="5">
+                                                {{item.apis}}
+                                        </textarea>
+                                    </center>
+                                    <div class = show7><div class = show6>Method of result{{index}}</div></div>
+                                    <center>
+                                        <textarea class = "T" cols="100" rows="5">
+                                                {{item.method}}
+                                        </textarea>
+                                    </center>
+                                </div>
+                </div>
             </template>
     </div>
 
@@ -158,11 +229,30 @@ new Vue({
         ok: false,
         counter: true,
         items:[
-            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"},
-            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"},
-            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"},
-            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"},
-            {code:"\n\n\n\n                                       Your result of code will be showed there\n\n\n\n"}
+            {
+                code:"\n\n                    Your result of code will be showed there\n\n",
+                apis:"\n\n                    Your result of apis will be showed there\n\n",
+                method:"\n\n                    Your result of method will be showed there\n\n"
+            },
+            {
+                code:"\n\n                    Your result of code will be showed there\n\n",
+                apis:"\n\n                    Your result of apis will be showed there\n\n",
+                method:"\n\n                    Your result of method will be showed there\n\n"
+             },
+            {
+                code:"\n\n                    Your result of code will be showed there\n\n",
+                apis:"\n\n                    Your result of apis will be showed there\n\n",
+                method:"\n\n                    Your result of method will be showed there\n\n"
+                },
+            {
+                code:"\n\n                    Your result of code will be showed there\n\n",
+                apis:"\n\n                    Your result of apis will be showed there\n\n",
+                method:"\n\n                    Your result of method will be showed there\n\n"},
+            {
+                code:"\n\n                    Your result of code will be showed there\n\n",
+                apis:"\n\n                    Your result of apis will be showed there\n\n",
+                method:"\n\n                    Your result of method will be showed there\n\n"
+                }
         ]
     },
 
