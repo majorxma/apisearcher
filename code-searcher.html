@@ -1,5 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang = "en">
+
+<!--begin code mirror -->
+<!--下面两个是使用Code Mirror必须引入的-->
+<link rel="stylesheet" href="codemirror-5.31.0/lib/codemirror.css"/>
+<script src="codemirror-5.31.0/lib/codemirror.js"></script>
+<!--Java代码高亮必须引入-->
+<script src="codemirror-5.31.0/clike.js"></script>
+<!--groovy代码高亮-->
+<script src="codemirror-5.31.0/mode/groovy/groovy.js"></script>
+<!--引入css文件，用以支持主题-->
+<link rel="stylesheet" href="codemirror-5.31.0/theme/dracula.css"/>
+
+<!--支持代码折叠-->
+<link rel="stylesheet" href="codemirror-5.31.0/addon/fold/foldgutter.css"/>
+<script src="codemirror-5.31.0/addon/fold/foldcode.js"></script>
+<script src="codemirror-5.31.0/addon/fold/foldgutter.js"></script>
+<script src="codemirror-5.31.0/addon/fold/brace-fold.js"></script>
+<script src="codemirror-5.31.0/addon/fold/comment-fold.js"></script>
+<!--括号匹配-->
+<script src="codemirror-5.31.0/addon/edit/matchbrackets.js"></script>
+<!--end Code Mirror -->
+
 <head>
 <meta charset="utf-8">
 <title>api-codesearcher</title>
@@ -170,8 +192,6 @@
 <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 <body>
 
-
-
 <div id="app">
 
     <transition
@@ -188,7 +208,7 @@
             <template v-for = "(item,index) in items">
                 <div id = mainshow>
                         <div class = show2>
-                            <div class = show3>Result:{{index}}</div>
+                            <a class = show3 :href="item.url">Result:{{index}}</a>
                             </div>
                                 <div class = show4>
                                     <div class = show5><div class = show6>code of result{{index}}</div></div>
@@ -217,10 +237,6 @@
 
 </div>
 
-
-
-
-<!-- JavaScript 代码需要放在尾部（指定的HTML元素之后） -->
 <script>
 new Vue({
     el:'#app',
@@ -366,11 +382,28 @@ var autoTextarea = function (elem, extra, maxHeight) {
 
 autoTextarea(document.getElementsByClassName("T"));
 
+//根据DOM元素的id构造出一个编辑器
+var editor = CodeMirror.fromTextArea(document.getElementsByClassName("code"), {
+        mode: "text/groovy",    //实现groovy代码高亮
+        mode: "text/x-java", //实现Java代码高亮
+        lineNumbers: true,	//显示行号
+        theme: "dracula",	//设置主题
+        lineWrapping: true,	//代码折叠
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        matchBrackets: true,	//括号匹配
+        //readOnly: true,        //只读
+    });
+    editor.setSize('800px', '950px');     //设置代码框的长宽
 
+    editor.setValue("");    //先代码框的值清空
+    editor.setValue(obj.scriptCode);    //给代码框赋值
+
+    // editor.setOption("readOnly", true);
 
 </script>
+
 </body>
 </html>
-
 
 <div v-html = "item.data.code"></div>
