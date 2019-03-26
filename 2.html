@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html lang = "en">
 
+<!--begin code mirror -->
+<!--下面两个是使用Code Mirror必须引入的-->
+<link rel="stylesheet" href="codemirror-5.31.0/lib/codemirror.css"/>
+<script src="codemirror-5.31.0/lib/codemirror.js"></script>
+<!--Java代码高亮必须引入-->
+<script src="codemirror-5.31.0/clike.js"></script>
+<!--groovy代码高亮-->
+<script src="codemirror-5.31.0/mode/groovy/groovy.js"></script>
+<!--引入css文件，用以支持主题-->
+<link rel="stylesheet" href="codemirror-5.31.0/theme/dracula.css"/>
+
+<!--支持代码折叠-->
+<link rel="stylesheet" href="codemirror-5.31.0/addon/fold/foldgutter.css"/>
+<script src="codemirror-5.31.0/addon/fold/foldcode.js"></script>
+<script src="codemirror-5.31.0/addon/fold/foldgutter.js"></script>
+<script src="codemirror-5.31.0/addon/fold/brace-fold.js"></script>
+<script src="codemirror-5.31.0/addon/fold/comment-fold.js"></script>
+<!--括号匹配-->
+<script src="codemirror-5.31.0/addon/edit/matchbrackets.js"></script>
+<!--end Code Mirror -->
+
 <head>
 <meta charset="utf-8">
-<title>api-codesearcher_pra1</title>
+<title>api-codesearcher</title>
 <style>
     body{
         margin: 0;
         padding: 0;
         /*background-color: #FFF2E2;*/
-        background-color: #ebe4d7;
+        background-image: url('back1.png');
         width:100%;
         height:100%;
     }
@@ -39,7 +60,7 @@
         position: absolute;
         top:80px;
         left: 5%;
-        background-color: white;
+        background-color: #2c3e50;
         border-radius: 20px;
         width:90%;
     }
@@ -52,19 +73,15 @@
     textarea {
         position: relative;
         overflow: hidden;
-        margin:5px;
-        padding: 5px;
+        margin:0px;
         border:0px;
         text-align: left;
-        color :black;
+        color : #fdc565;
+        border-radius: 10px;
         font-size:15px;
-        left:5%;
-        width:80%;
-        background-color:white;
-        border-left: 1px black solid;
+        width:95%;
+        background-color:#2c3e50;
     }
-
-    textarea:focus{outline: none;}
 
     .searcher1 {
         left:27.5%;
@@ -114,7 +131,7 @@
     }
 
     #mainshow{
-        border: 2px solid #d8d8d8;
+        border: 2px solid white;
         width: 80%;
         left:10%;
         border-radius: 15px;
@@ -125,49 +142,33 @@
 
     .show2{
         height: 40px;
-        border-bottom:2px #d8d8d8 solid;
+        border-bottom:2px white solid;
     }
 
     .show3{
         position: relative;
-        left:5%;
+        left:45%;
         top:15%;
         font-size: 130%;
     }
 
     .show4{
         position: relative;
-        width:100%;
-        left: 0;
+        width:70%;
+        left: 14%;
+        border: 1px white solid;
         padding: 0px;
-        margin: 20px;
+        border-radius: 15px;
+        margin: 10px;
     }
-
-    .show41{
-        position: relative;
-        width:100%;
-        left: 0;
-        padding: 0px;
-        margin: 20px;
-    }
-
 
     .show5 {
         position: relative;
-        width:60px;
-        float: left;
-        top:45px;
-        text-align: center;
+        top:20%;
+        height: 40px;
+        border-bottom: 1px white solid;
     }
     
-    .show5border{
-        position: relative;
-        width:60px;
-        height: 120px;
-        float: left;
-        left: 15px;
-    }
-
     .show6 {
         position: relative;
         height: 20px;
@@ -180,8 +181,9 @@
         top:20%;
         height: 40px;
         border-radius: 5px;
-        border: 1px black solid;
+        border: 1px white solid;
     }
+
 
 </style>
 <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
@@ -207,20 +209,29 @@
             <template v-for = "(item,index) in items">
                 <div id = mainshow>
                         <div class = show2>
-                            <a class = show3 :href="item.url">Result:{{index + 1}}</a>
+                            <a class = show3 :href="item.url">Result:{{index}}</a>
                             </div>
                                 <div class = show4>
-                                    <div class = show5border> <div class = show5>code</div></div>
-                                    <textarea class = "T" cols="20" rows="5">{{item.code}}</textarea>
+                                    <div class = show5><div class = show6>code of result{{index}}</div></div>
+                                    <center>
+                                        <textarea :id = "gernerateId(index)"class = "T" cols="100" rows="5">
+                                                {{item.code}}
+                                        </textarea>
+                                    </center>
+                                    
+                                    <div class = show7><div class = show6>API of result{{index}}</div></div>
+                                    <center>
+                                        <textarea class = "T" cols="100" rows="5">
+                                                {{item.apis}}
+                                        </textarea>
+                                    </center>
+                                    <div class = show7><div class = show6>Method of result{{index}}</div></div>
+                                    <center>
+                                        <textarea class = "T" cols="100" rows="5">
+                                                {{item.method}}
+                                        </textarea>
+                                    </center>
                                 </div>
-                            <div class = show4>
-                                    <div class = show5border> <div class = show5>apis</div></div>
-                                    <textarea class = "T" cols="20" rows="5">{{item.apis}}</textarea>
-                            </div>
-                            <div class = show41>
-                                    <div class = show5border> <div class = show5>method</div></div>
-                                    <textarea class = "T" cols="20" rows="5">{{item.method}}</textarea>
-                            </div>
                 </div>
             </template>
     </div>
@@ -236,9 +247,9 @@ new Vue({
         counter: true,
         items:[
             {
-                code:"\n\nYour result of code will be showed there\n\n",
-                apis:"\n\nYour result of apis will be showed there\n\n",
-                method:"\n\nYour result of method will be showed there\n\n"
+                code:"\n\npublic static void main()\n\n",
+                apis:"\n\n                    Your result of apis will be showed there\n\n",
+                method:"\n\n                    Your result of method will be showed there\n\n"
             },
             {
                 code:"\n\n                    Your result of code will be showed there\n\n",
@@ -262,6 +273,12 @@ new Vue({
         ]
     },
 
+    methods: {
+        gernerateId: function(index){
+            return "code_" +index 
+        },
+    },
+
     watch: {
           counter:function (val) {
             this.ok = false;
@@ -277,6 +294,8 @@ console.log(this.ok);
 			console.log("Ans: ",  response.data);
 			//console.log(response);
 			this.items = response.data;
+            editor.getTextArea().value;
+            editor.CodeMirrorEditor.setValue("Hello Kitty");
 	       		//ans_tmp = response.data;
 			console.log(this.items);
 			console.log("end");
@@ -285,7 +304,6 @@ console.log(this.ok);
 			console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 			console.log(error);
 		});
-
 		this.ok = false;
           },
           back:function(val) {
@@ -295,85 +313,10 @@ console.log(this.ok);
 
 });
 
-var autoTextarea = function (elem, extra, maxHeight) {
-        //判断elem是否为数组
-        if(elem.length > 0){
-            for(var i = 0; i < elem.length; i++ ){
-               e(elem[i]);
-            }
-        }
-        else{
-            e(elem);
-        }
- 
-        function e(elem){
-        extra = extra || 0;
-        var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
-        isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
-                addEvent = function (type, callback) {
-                        elem.addEventListener ?
-                                elem.addEventListener(type, callback, false) :
-                                elem.attachEvent('on' + type, callback);
-                },
-                getStyle = elem.currentStyle ? function (name) {
-                        var val = elem.currentStyle[name];
- 
-                        if (name === 'height' && val.search(/px/i) !== 1) {
-                                var rect = elem.getBoundingClientRect();
-                                return rect.bottom - rect.top -
-                                        parseFloat(getStyle('paddingTop')) -
-                                        parseFloat(getStyle('paddingBottom')) + 'px';        
-                        };
- 
-                        return val;
-                } : function (name) {
-                                return getComputedStyle(elem, null)[name];
-                },
-                minHeight = parseFloat(getStyle('height'));
- 
-        elem.style.resize = 'none';
- 
-        var change = function () {
-                var scrollTop, height,
-                        padding = 0,
-                        style = elem.style;
- 
-                if (elem._length === elem.value.length) return;
-                elem._length = elem.value.length;
- 
-                if (!isFirefox && !isOpera) {
-                        padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
-                };
-                scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
- 
-                elem.style.height = minHeight + 'px';
-                if (elem.scrollHeight > minHeight) {
-                        if (maxHeight && elem.scrollHeight > maxHeight) {
-                                height = maxHeight - padding;
-                                style.overflowY = 'auto';
-                        } else {
-                                height = elem.scrollHeight - padding;
-                                style.overflowY = 'hidden';
-                        };
-                        style.height = height + extra + 'px';
-                        scrollTop += parseInt(style.height) - elem.currHeight;
-                        document.body.scrollTop = scrollTop;
-                        document.documentElement.scrollTop = scrollTop;
-                        elem.currHeight = parseInt(style.height);
-                };
-        };
- 
-        addEvent('propertychange', change);
-        addEvent('input', change);
-        addEvent('focus', change);
-        change();
-        }
-};
 
-autoTextarea(document.getElementsByClassName("T"));
 
 //根据DOM元素的id构造出一个编辑器
-var editor = CodeMirror.fromTextArea(document.getElementsByClassName("code"), {
+var editor = CodeMirror.fromTextArea(document.getElementById("code_0"), {
         mode: "text/groovy",    //实现groovy代码高亮
         mode: "text/x-java", //实现Java代码高亮
         lineNumbers: true,	//显示行号
@@ -384,12 +327,9 @@ var editor = CodeMirror.fromTextArea(document.getElementsByClassName("code"), {
         matchBrackets: true,	//括号匹配
         //readOnly: true,        //只读
     });
-    editor.setSize('800px', '950px');     //设置代码框的长宽
+    editor.setSize('600px', '200px');     //设置代码框的长宽
 
-    editor.setValue("");    //先代码框的值清空
-    editor.setValue(obj.scriptCode);    //给代码框赋值
-
-    // editor.setOption("readOnly", true);
+    editor.getTextArea().value;
 
 </script>
 
