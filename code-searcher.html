@@ -15,7 +15,7 @@
     }
 
     input {
-         height:30px;
+        height:30px;
          width:400px;
          background: none;
          font-size: 20px;
@@ -63,25 +63,46 @@
         background-color:white;
         border-left: 1px black solid;
     }
+    .textarea1{
+        position: relative;
+        overflow: hidden;
+        margin:5px;
+        padding: 5px;
+        border:0px;
+        text-align: center;
+        color :black;
+        font-size:15px;
+        left:5%;
+        width:80%;
+        background-color:white;
+        border-left: 1px black solid;
+    }
+
+    #inputsentence{
+        position:relative;
+        margin: 5px;
+        padding: 5px;
+        border:0px;
+        text-align: center;
+        width:80%;
+        left:5%;
+    }
 
     textarea:focus{outline: none;}
 
     .searcher1 {
-        left:27.5%;
         background: #FFF2E2;
         top:100px;
-        border-radius: 10px;
+        border-radius: 15px;
         margin: auto;
-        width: 45%;
-        height: 35px;
+        width: 530px;
+        height: 37px;
         border:solid 1px;
     }
 
 
      .searcher
      {
-        position:absolute;
-        left:27.5%;
          top:400px;
         border-radius: 10px;
          margin: auto;
@@ -97,9 +118,9 @@
     .login-button{
         float:right;
         width: 120px;
-	    height: 35px;
+	    height: 37px;
 	    border-width: 0px; 
-	    border-radius: 10px; 
+	    border-radius: 15px; 
 	    background: #1E90FF; 
 	    cursor: pointer; 
 	    outline: none; 
@@ -126,11 +147,22 @@
     .show2{
         height: 40px;
         border-bottom:2px #d8d8d8 solid;
+        background-color: #f7f7f7;
+        -moz-border-radius: 15px;
+        -webkit-border-radius: 15px;
     }
 
     .show3{
         position: relative;
-        left:5%;
+        left:1%;
+        top:15%;
+        font-size: 130%;
+        float: left;
+    }
+
+    .method1{
+        position:relative;
+        left:20px;
         top:15%;
         font-size: 130%;
     }
@@ -192,22 +224,19 @@
 <body>
 
 <div id="app">
-
-    <transition
-            name="custom-classes-transition"
-            enter-active-class="animated bounceInLeft"
-            leave-active-class="animated bounceOutRight">
+    <center>
         <div class = "searcher1" v-if = "!ok">
-            <input left = "0" id = "iput" v-model = "message" type="border-radius:10px;" placeholder="please input your search">
+            <input left = "0" id = "iput" v-model = "message" type="border-radius:10px;" placeholder="please input your search" @keyup.enter="counter = !counter">
             <button class="login-button" v-on:click="counter = !counter">SEARCH</button>
         </div>
-    </transition>
+    </center>
 
     <div id = "page2" v-if = "!ok">
             <template v-for = "(item,index) in items">
                 <div id = mainshow>
                         <div class = show2>
-                            <a class = show3 :href="item.url">Result:{{index + 1}}</a>
+                            <a class = show3 :href="item.url">Example{{index + 1}}</a>
+                            <div class = method1>method:   {{item.method}}</div>
                             </div>
                                 <div class = show4>
                                     <div class = show5border> <div class = show5>code</div></div>
@@ -215,11 +244,11 @@
                                 </div>
                             <div class = show4>
                                     <div class = show5border> <div class = show5>apis</div></div>
-                                    <textarea class = "T" cols="20" rows="5">{{item.apis}}</textarea>
+                                    <textarea class = "textarea1" class = "T" cols="20" rows="5">{{item.apis}}</textarea>
                             </div>
                             <div class = show41>
-                                    <div class = show5border> <div class = show5>method</div></div>
-                                    <textarea class = "T" cols="20" rows="5">{{item.method}}</textarea>
+                                    <div class = show5border> <div class = show5>sentence</div></div>
+                                    <textarea class = "textarea1"  cols="20" rows="5">{{item.sentence}}</textarea>
                             </div>
                 </div>
             </template>
@@ -236,28 +265,33 @@ new Vue({
         counter: true,
         items:[
             {
-                code:"\n\nYour result of code will be showed there\n\n",
+                code:"\n\n                          Your result of code will be showed there\n\n",
                 apis:"\n\nYour result of apis will be showed there\n\n",
-                method:"\n\nYour result of method will be showed there\n\n"
+                method:"",
+                sentence:"\n\nYour result of sentence will be showed there\n\n"
             },
             {
-                code:"\n\n                    Your result of code will be showed there\n\n",
-                apis:"\n\n                    Your result of apis will be showed there\n\n",
-                method:"\n\n                    Your result of method will be showed there\n\n"
+                code:"\n\n                           Your result of code will be showed there\n\n",
+                apis:"\n\nYour result of apis will be showed there\n\n",
+                method:"",
+                sentence:"\n\nYour result of sentence will be showed there\n\n"
              },
             {
-                code:"\n\n                    Your result of code will be showed there\n\n",
-                apis:"\n\n                    Your result of apis will be showed there\n\n",
-                method:"\n\n                    Your result of method will be showed there\n\n"
+                code:"\n\n                           Your result of code will be showed there\n\n",
+                apis:"\n\nYour result of apis will be showed there\n\n",
+                method:"",
+                sentence:"\n\nYour result of sentence will be showed there\n\n"
                 },
             {
-                code:"\n\n                    Your result of code will be showed there\n\n",
-                apis:"\n\n                    Your result of apis will be showed there\n\n",
-                method:"\n\n                    Your result of method will be showed there\n\n"},
+                code:"\n\n                           Your result of code will be showed there\n\n",
+                apis:"\n\nYour result of apis will be showed there\n\n",
+                method:"",
+                sentence:"\n\nYour result of sentence will be showed there\n\n"},
             {
-                code:"\n\n                    Your result of code will be showed there\n\n",
-                apis:"\n\n                    Your result of apis will be showed there\n\n",
-                method:"\n\n                    Your result of method will be showed there\n\n"
+                code:"\n\n                           Your result of code will be showed there\n\n",
+                apis:"\n\nYour result of apis will be showed there\n\n",
+                method:"",
+                sentence:"\n\nYour result of sentence will be showed there\n\n"
                 }
         ]
     },
