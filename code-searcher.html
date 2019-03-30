@@ -210,6 +210,38 @@
         left: 15px;
     }
 
+    .show9 {
+        position: relative;
+        width:60px;
+        float: right;
+        top:25px;
+        text-align: center;
+    }
+    
+    .show9border{
+        position: relative;
+        width:60px;
+        height: 100px;
+        float: left;
+        left: 15px;
+    }
+
+    .show0 {
+        position: relative;
+        width:60px;
+        float: right;
+        top:8px;
+        text-align: center;
+    }
+    
+    .show0border{
+        position: relative;
+        width:0px;
+        height: 100px;
+        float: left;
+        left: 15px;
+    }
+
     .show6 {
         position: relative;
         height: 20px;
@@ -240,7 +272,6 @@
             <button class="login-button" v-on:click="counter = !counter">SEARCH</button>
         </div>
     </center>
-
     <div id = "page2" v-if = "!ok">
             <template v-for = "(item,index) in items">
                 <div id = mainshow>
@@ -254,12 +285,12 @@
                                     <textarea class = "T" cols="20" rows="5">{{item.code}}</textarea>
                                 </div>
                             <div class = show4>
-                                    <div class = show5border> <div class = show5>apis</div></div>
-                                    <textarea class = "textarea1" class = "T" cols="20" rows="5">{{item.apis}}</textarea>
+                                    <div class = show9border> <div class = show9>apis</div></div>
+                                    <textarea class = "textarea1" class = "T" cols="20" rows="3">{{item.apis}}</textarea>
                             </div>
                             <div class = show41>
-                                    <div class = show5border> <div class = show5>sentence</div></div>
-                                    <textarea class = "textarea1"  cols="20" rows="5">{{item.sentence}}</textarea>
+                                    <div class = show0border> <div class = show0>sentence</div></div>
+                                    <textarea class = "textarea1"  cols="20" rows="1">{{item.sentence}}</textarea>
                             </div>
                 </div>
             </template>
@@ -277,32 +308,32 @@ new Vue({
         items:[
             {
                 code:"\n\n                          Your result of code will be showed there\n\n",
-                apis:"\n\nYour result of apis will be showed there\n\n",
+                apis:"\nYour result of apis will be showed there\n",
                 method:"",
-                sentence:"\n\nYour result of sentence will be showed there\n\n"
+                sentence:"Your result of sentence will be showed there"
             },
             {
                 code:"\n\n                           Your result of code will be showed there\n\n",
-                apis:"\n\nYour result of apis will be showed there\n\n",
+                apis:"\nYour result of apis will be showed there\n",
                 method:"",
-                sentence:"\n\nYour result of sentence will be showed there\n\n"
+                sentence:"Your result of sentence will be showed there"
              },
             {
                 code:"\n\n                           Your result of code will be showed there\n\n",
-                apis:"\n\nYour result of apis will be showed there\n\n",
+                apis:"\nYour result of apis will be showed there\n",
                 method:"",
-                sentence:"\n\nYour result of sentence will be showed there\n\n"
+                sentence:"Your result of sentence will be showed there"
                 },
             {
                 code:"\n\n                           Your result of code will be showed there\n\n",
-                apis:"\n\nYour result of apis will be showed there\n\n",
+                apis:"\nYour result of apis will be showed there\n",
                 method:"",
-                sentence:"\n\nYour result of sentence will be showed there\n\n"},
+                sentence:"Your result of sentence will be showed there"},
             {
                 code:"\n\n                           Your result of code will be showed there\n\n",
-                apis:"\n\nYour result of apis will be showed there\n\n",
+                apis:"\nYour result of apis will be showed there\n",
                 method:"",
-                sentence:"\n\nYour result of sentence will be showed there\n\n"
+                sentence:"Your result of sentence will be showed there"
                 }
         ]
     },
