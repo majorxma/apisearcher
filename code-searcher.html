@@ -100,6 +100,16 @@
         border:solid 1px;
     }
 
+    .searcher2 {
+        position: relative;
+        top:350px;
+        background: #FFF2E2;
+        border-radius: 15px;
+        margin: auto;
+        width: 530px;
+        height: 37px;
+        border:solid 1px;
+    }
 
      .searcher
      {
@@ -256,6 +266,11 @@
         border-radius: 5px;
         border: 1px black solid;
     }
+.imgs{
+    position: relative;
+    top:200px;
+
+}
 
 </style>
 <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
@@ -265,35 +280,56 @@
 <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 <body>
 
-<div id="app">
-    <center>
-        <div class = "searcher1" v-if = "!ok">
-            <input left = "0" id = "iput" v-model = "message" type="border-radius:10px;" placeholder="please input your search" @keyup.enter="counter = !counter">
-            <button class="login-button" v-on:click="counter = !counter">SEARCH</button>
-        </div>
-    </center>
-    <div id = "page2" v-if = "!ok">
-            <template v-for = "(item,index) in items">
-                <div id = mainshow>
-                        <div class = show2>
-                            <a class = show3 :href="item.url">Example{{index + 1}}</a>
-			    <div class = method1>method:   {{item.method}}</div>
-			    <div class = method_dist>	dist: {{item.dist}} </div>
+<div id="app" >
+    <div v-if = "willshow">
+            <transition
+            name="custom-classes-transition"
+            enter-active-class="animated bounceInLeft"
+            leave-active-class="animated bounceOutRight">
+            <div>
+                    <center>
+                            <img src="images/apicodesearcher.png" class = "imgs"/>
+                    </center>
+                    <div class = "searcher2">
+                        <input left = "0" id = "iput" v-model = "message" type="border-radius:10px;" placeholder="please input your search" @keyup.enter="counter = !counter">
+                        <button class="login-button" v-on:click="willshow = !willshow">SEARCH</button>
+                    </div>
+            </div>
+          </transition>
+    </div>
+        
+    <div v-else>
+        
+            <center>
+                    <div class = "searcher1" v-if = "!ok">
+                        <input left = "0" id = "iput" v-model = "message" type="border-radius:10px;" placeholder="please input your search" @keyup.enter="counter = !counter">
+                        <button class="login-button" v-on:click="counter = !counter">SEARCH</button>
+                    </div>
+                </center>
+                <div id = "page2" v-if = "!ok">
+                        <template v-for = "(item,index) in items">
+                            <div id = mainshow>
+                                    <div class = show2>
+                                        <a class = show3 :href="item.url">Example{{index + 1}}</a>
+                            <div class = method1>method:   {{item.method}}</div>
+                            <div class = method_dist>	dist: {{item.dist}} </div>
+                                        </div>
+                                            <div class = show4>
+                                                <div class = show5border> <div class = show5>code</div></div>
+                                                <textarea class = "T" cols="20" rows="5">{{item.code}}</textarea>
+                                            </div>
+                                        <div class = show4>
+                                                <div class = show9border> <div class = show9>apis</div></div>
+                                                <textarea class = "textarea1" class = "T" cols="20" rows="3">{{item.apis}}</textarea>
+                                        </div>
+                                        <div class = show41>
+                                                <div class = show0border> <div class = show0>sentence</div></div>
+                                                <textarea class = "textarea1"  cols="20" rows="1">{{item.sentence}}</textarea>
+                                        </div>
                             </div>
-                                <div class = show4>
-                                    <div class = show5border> <div class = show5>code</div></div>
-                                    <textarea class = "T" cols="20" rows="5">{{item.code}}</textarea>
-                                </div>
-                            <div class = show4>
-                                    <div class = show9border> <div class = show9>apis</div></div>
-                                    <textarea class = "textarea1" class = "T" cols="20" rows="3">{{item.apis}}</textarea>
-                            </div>
-                            <div class = show41>
-                                    <div class = show0border> <div class = show0>sentence</div></div>
-                                    <textarea class = "textarea1"  cols="20" rows="1">{{item.sentence}}</textarea>
-                            </div>
+                        </template>
                 </div>
-            </template>
+
     </div>
 
 </div>
@@ -302,6 +338,7 @@
 new Vue({
     el:'#app',
     data: {
+        willshow:true,
         message:'', 
         ok: false,
         counter: true,
