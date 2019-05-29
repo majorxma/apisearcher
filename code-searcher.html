@@ -269,7 +269,6 @@
 .imgs{
     position: relative;
     top:200px;
-
 }
 
 </style>
@@ -291,8 +290,8 @@
                             <img src="images/apicodesearcher.png" class = "imgs"/>
                     </center>
                     <div class = "searcher2">
-                        <input left = "0" id = "iput" v-model = "message" type="border-radius:10px;" placeholder="please input your search" @keyup.enter="counter = !counter">
-                        <button class="login-button" v-on:click="willshow = !willshow">SEARCH</button>
+                        <input left = "0" id = "iput" v-model = "message" type="border-radius:10px;" placeholder="please input your search" @keyup.enter="willshow = !willshow, counter = !counter">
+                        <button class="login-button" v-on:click="willshow = !willshow, counter = !counter">SEARCH</button>
                     </div>
             </div>
           </transition>
@@ -374,7 +373,12 @@ new Vue({
                 }
         ]
     },
-
+    /*method:{
+        greet: function() {
+            this.willshow = !this.willshow;
+            this.counter = !this.counter;
+        }
+    },*/
     watch: {
           counter:function (val) {
             this.ok = false;
